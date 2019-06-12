@@ -23,7 +23,7 @@ public class SolutionsOutput {
 
     List<DoubleSolution> population = new ArrayList<>();
     Problem problem;
-    String fileName;
+    String fileName = "";
     public SolutionsOutput(Problem problemPar, List<DoubleSolution> populationPar) {
         population.clear();
         population.addAll(populationPar);
@@ -37,7 +37,7 @@ public class SolutionsOutput {
         fileName = fileName + "_";
     }
     
-    public void saveSolutions() {
+    public void saveRandomSolutions() {
         String folderName = "ClusterAnalysisRandomSolutions";
        fileName = fileName + problem.getName() + "-" + problem.getNumberOfObjectives();
 
@@ -47,6 +47,25 @@ public class SolutionsOutput {
         }
         try {
             PrintStream printStreamSolutions = new PrintStream(folderName + "/" + fileName + "-random_solutions.csv");
+            
+            for(DoubleSolution solution: population){
+                printStreamSolutions.print(solution + "\n");
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveSolutions() {
+        String folderName = "Results";
+       fileName = fileName + problem.getName() + "-" + problem.getNumberOfObjectives();
+
+        boolean success = (new File(folderName)).mkdirs();
+        if (!success) {
+            System.out.println("Folder already exists!");
+        }
+        try {
+            PrintStream printStreamSolutions = new PrintStream(folderName + "/" + fileName + "-solutions.csv");
             
             for(DoubleSolution solution: population){
                 printStreamSolutions.print(solution + "\n");

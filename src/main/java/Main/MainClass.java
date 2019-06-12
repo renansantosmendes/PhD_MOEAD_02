@@ -40,13 +40,14 @@ public class MainClass {
         int numberOfVariables = 10;
         int populationSize = 100;
         int resultPopulationSize = 100;
-        int maxEvaluations = 80000;
+        int maxEvaluations = 200000;
         double neighborhoodSelectionProbability = 0.01;
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
         
         //initializing benchmark problem
-        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives,2); 
+        Problem problem = new DTLZ1(numberOfVariables, numberOfObjectives); 
+        
         
         //initializing algorithm operators
         CrossoverOperator crossover = new DifferentialEvolutionCrossover();
@@ -72,12 +73,12 @@ public class MainClass {
         System.out.println(algorithm.getResult());
         
         
-        new SolutionsOutput(problem, algorithm.getResult(), "MOEAD_Result").saveSolutions();
+        new SolutionsOutput(problem, algorithm.getResult(), problem.getName()).saveSolutions();
         
         
-        List<DoubleSolution> population = new ArrayList<>();
-        int numberOfSolutions = 10000;
-        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
+//        List<DoubleSolution> population = new ArrayList<>();
+//        int numberOfSolutions = 10000;
+//        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
 //        population.forEach(u -> System.out.println(u));
         
         //new SolutionsOutput(problem, population).saveSolutions();
