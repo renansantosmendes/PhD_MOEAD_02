@@ -19,10 +19,7 @@ import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.problem.multiobjective.dtlz.DTLZ1;
-import org.uma.jmetal.problem.multiobjective.dtlz.DTLZ2;
-import org.uma.jmetal.problem.multiobjective.dtlz.DTLZ3;
-import org.uma.jmetal.problem.multiobjective.dtlz.DTLZ5;
+import org.uma.jmetal.problem.multiobjective.dtlz.*;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
 
@@ -36,17 +33,18 @@ public class MainClass {
     public static void main(String[] args) throws JMetalException, FileNotFoundException {
         
         //initializing problem and algorithm variables
-        int numberOfObjectives = 2;//5,10,15
+        int numberOfObjectives = 10;//5,10,15
         int numberOfVariables = 10;
         int populationSize = 100;
         int resultPopulationSize = 100;
         int maxEvaluations = 200000;
-        double neighborhoodSelectionProbability = 0.01;
+        double neighborhoodSelectionProbability = 0.1;
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
-        
+        int evaluationToSave = 5000;
+        int maxExecutions = 1;
         //initializing benchmark problem
-        Problem problem = new DTLZ1(numberOfVariables, numberOfObjectives); 
+        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives); 
         
         
         //initializing algorithm operators
@@ -59,16 +57,18 @@ public class MainClass {
                 populationSize,
                 resultPopulationSize,
                 maxEvaluations,
+                maxExecutions,
+                evaluationToSave,
                 mutation,
                 crossover,
-                FunctionType.AGG,
+                FunctionType.PBI,
                 "home/renansantos/NetBeansProjects/MOEAD/MOEAD_Weights",
                 neighborhoodSelectionProbability,
                 maximumNumberOfReplacedSolutions,
                 neighborSize);
 
        
-        algorithm.run();
+        algorithm.runExperiment();
         System.out.println("MOEAD Finished!");
         System.out.println(algorithm.getResult());
         

@@ -365,4 +365,15 @@ public abstract class AbstractMOEAD<S extends Solution<?>> implements Algorithm<
             return population;
         }
     }
+
+    public double[][] getResultArray() {
+        double[][] objectivesResult = new double[populationSize][problem.getNumberOfObjectives()];
+
+        for (int j = 0; j < populationSize; j++) {
+            for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
+                objectivesResult[j][i] = population.get(j).getObjective(i);
+            }
+        }
+        return objectivesResult;
+    }
 }
