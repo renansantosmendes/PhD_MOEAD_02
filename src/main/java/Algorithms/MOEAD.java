@@ -5,15 +5,22 @@
  */
 package Algorithms;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jmetal.qualityIndicator.Hypervolume;
 import org.uma.jmetal.algorithm.multiobjective.moead.util.MOEADUtils;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
 import org.uma.jmetal.problem.Problem;
+import org.uma.jmetal.qualityindicator.impl.hypervolume.WFGHypervolume;
 import org.uma.jmetal.solution.DoubleSolution;
+import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 /**
  *
@@ -25,6 +32,9 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
     protected DifferentialEvolutionCrossover differentialEvolutionCrossover;
     protected int evaluationToSave;
     protected int maxExecutions;
+    protected PrintStream hypervolumeStream;
+    protected SolutionsOutput solutionsOutput;
+    protected ArrayPoint referencePoint;
 
     public MOEAD(Problem<DoubleSolution> problem,
             int populationSize,
@@ -46,6 +56,23 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
         differentialEvolutionCrossover = (DifferentialEvolutionCrossover) crossoverOperator;
         this.evaluationToSave = evaluationToSave;
         this.maxExecutions = maxExecutions;
+
+        referencePoint = new ArrayPoint(problem.getNumberOfObjectives());
+        for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
+            referencePoint.setDimensionValue(i, 10.0);
+        }
+
+    }
+
+    private void initializeHypervolumeStream(int currentExecution) {
+        try {
+            String folderName = "Results/" + this.problem.getName() + "-" + this.problem.getNumberOfObjectives() + "/";
+            boolean success = (new File(folderName)).mkdirs();
+            hypervolumeStream = new PrintStream(folderName + "hypervolume_execution_" + currentExecution + ".csv");
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getStackTrace());
+        }
     }
 
     @Override
@@ -90,8 +117,12 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
             initializeUniformWeight();
             initializeNeighborhood();
             initializeIdealPoint();
-
+            initializeHypervolumeStream(execution);
             evaluations = populationSize;
+            if(execution == 0){
+                population.forEach(u -> System.out.println(u));
+            }
+            System.out.println("Execution = " + execution);
             do {
                 int[] permutation = new int[populationSize];
                 MOEADUtils.randomPermutation(permutation, populationSize);
@@ -116,13 +147,9 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
                 }
 
                 if (evaluations % evaluationToSave == 0) {
-                    Hypervolume qualityIndicator = new Hypervolume();
-                    double value = qualityIndicator.calculateHypervolume(getResultArray(), populationSize,
-                            problem.getNumberOfObjectives());
-                    System.out.println(evaluations);
-                    System.out.println(value);
-                    new SolutionsOutput(problem, this.getResult(), problem.getName(), execution, evaluations).
-                            saveSolutionsDuringAlgorithmExecution();
+                    WFGHypervolume qualityIndicator = new WFGHypervolume();
+                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
+                    hypervolumeStream.println(value);
                 }
 
             } while (evaluations < maxEvaluations);

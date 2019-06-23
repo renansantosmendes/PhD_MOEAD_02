@@ -20,8 +20,10 @@ import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.problem.multiobjective.dtlz.*;
+import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 
 /**
@@ -33,7 +35,7 @@ public class MainClass {
     public static void main(String[] args) throws JMetalException, FileNotFoundException {
         
         //initializing problem and algorithm variables
-        int numberOfObjectives = 10;//5,10,15
+        int numberOfObjectives = 2;//5,10,15
         int numberOfVariables = 10;
         int populationSize = 100;
         int resultPopulationSize = 100;
@@ -41,9 +43,10 @@ public class MainClass {
         double neighborhoodSelectionProbability = 0.1;
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
-        int evaluationToSave = 5000;
-        int maxExecutions = 1;
+        int evaluationToSave = 500;
+        int maxExecutions = 30;
         //initializing benchmark problem
+//        Problem problem = new ZDT1(numberOfVariables); 
         Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives); 
         
         
@@ -82,6 +85,7 @@ public class MainClass {
 //        population.forEach(u -> System.out.println(u));
         
         //new SolutionsOutput(problem, population).saveSolutions();
+        
         
         
     }
