@@ -47,7 +47,7 @@ public class MainClass {
         int maxExecutions = 30;
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives); 
+        Problem problem = new DTLZ3(numberOfVariables, numberOfObjectives); 
         
         
         //initializing algorithm operators
@@ -83,10 +83,6 @@ public class MainClass {
 //        int numberOfSolutions = 10000;
 //        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
 //        population.forEach(u -> System.out.println(u));
-        
-        //new SolutionsOutput(problem, population).saveSolutions();
-        
-        
         
     }
 }

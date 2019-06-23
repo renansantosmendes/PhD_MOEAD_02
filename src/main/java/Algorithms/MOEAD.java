@@ -59,7 +59,7 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 
         referencePoint = new ArrayPoint(problem.getNumberOfObjectives());
         for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
-            referencePoint.setDimensionValue(i, 10.0);
+            referencePoint.setDimensionValue(i, 4.0);
         }
 
     }
@@ -119,7 +119,7 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
             initializeIdealPoint();
             initializeHypervolumeStream(execution);
             evaluations = populationSize;
-            if(execution == 0){
+            if (execution == 0) {
                 population.forEach(u -> System.out.println(u));
             }
             System.out.println("Execution = " + execution);
@@ -147,8 +147,15 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
                 }
 
                 if (evaluations % evaluationToSave == 0) {
-                    WFGHypervolume qualityIndicator = new WFGHypervolume();
-                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
+//                    WFGHypervolume qualityIndicator = new WFGHypervolume();
+//                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
+
+                    Hypervolume hv = new Hypervolume();
+
+                    double value = hv.calculateHypervolume(getResultArray(), populationSize, problem.getNumberOfObjectives());
+                    
+//                    double value2 = qualityIndicator.hypervolume(getResultArray(), getParetoArray(600), populationSize);
+//                    System.out.println(value2);
                     hypervolumeStream.println(value);
                 }
 

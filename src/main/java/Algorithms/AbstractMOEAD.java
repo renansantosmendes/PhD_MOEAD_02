@@ -376,4 +376,15 @@ public abstract class AbstractMOEAD<S extends Solution<?>> implements Algorithm<
         }
         return objectivesResult;
     }
+    
+    public double[][] getParetoArray(double value) {
+        double[][] objectivesResult = new double[populationSize][problem.getNumberOfObjectives()];
+
+        for (int j = 0; j < 1; j++) {
+            for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
+                objectivesResult[j][i] = value;
+            }
+        }
+        return objectivesResult;
+    }
 }
