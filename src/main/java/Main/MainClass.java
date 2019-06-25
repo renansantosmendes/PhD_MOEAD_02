@@ -28,8 +28,8 @@ import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 /**
  *
- * @author renansantos
- */
+ * @author renansantos 
+*/
 public class MainClass {
 
     public static void main(String[] args) throws JMetalException, FileNotFoundException {
@@ -44,10 +44,10 @@ public class MainClass {
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
         int evaluationToSave = 500;
-        int maxExecutions = 30;
+        int maxExecutions = 5;
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-        Problem problem = new DTLZ3(numberOfVariables, numberOfObjectives); 
+        Problem problem = new DTLZ2(numberOfVariables, numberOfObjectives); 
         
         
         //initializing algorithm operators
@@ -64,7 +64,7 @@ public class MainClass {
                 evaluationToSave,
                 mutation,
                 crossover,
-                FunctionType.PBI,
+                FunctionType.TCHE,
                 "home/renansantos/NetBeansProjects/MOEAD/MOEAD_Weights",
                 neighborhoodSelectionProbability,
                 maximumNumberOfReplacedSolutions,

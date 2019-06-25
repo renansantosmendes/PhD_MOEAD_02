@@ -87,7 +87,7 @@ public class SolutionsOutput {
 
     public void saveSolutions() {
         String folderName = "Results/" + this.folderName;
-        fileName = fileName + problem.getName() + "_" + problem.getNumberOfObjectives();
+        fileName = problem.getName() + "-" + problem.getNumberOfObjectives();
 
         boolean success = (new File(folderName)).mkdirs();
         if (!success) {
