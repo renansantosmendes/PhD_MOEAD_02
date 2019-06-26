@@ -19,8 +19,10 @@ import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.Problem;
+import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.problem.multiobjective.dtlz.*;
-import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
+import org.uma.jmetal.problem.multiobjective.wfg.*;
+import org.uma.jmetal.problem.multiobjective.zdt.*;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
@@ -47,7 +49,8 @@ public class MainClass {
         int maxExecutions = 5;
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-        Problem problem = new DTLZ2(numberOfVariables, numberOfObjectives); 
+        Problem problem = new DTLZ2(numberOfVariables, numberOfObjectives);
+//        Problem problem = new WFG2(2*(numberOfObjectives - 1),20, numberOfObjectives); 
         
         
         //initializing algorithm operators
@@ -64,7 +67,7 @@ public class MainClass {
                 evaluationToSave,
                 mutation,
                 crossover,
-                FunctionType.TCHE,
+                FunctionType.PBI,
                 "home/renansantos/NetBeansProjects/MOEAD/MOEAD_Weights",
                 neighborhoodSelectionProbability,
                 maximumNumberOfReplacedSolutions,

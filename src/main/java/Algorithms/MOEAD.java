@@ -59,7 +59,7 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 
         referencePoint = new ArrayPoint(problem.getNumberOfObjectives());
         for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
-            referencePoint.setDimensionValue(i, 3.0);
+            referencePoint.setDimensionValue(i, 11.0);
         }
 
     }
@@ -67,6 +67,17 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
     private void initializeHypervolumeStream(int currentExecution) {
         try {
             String folderName = "Results/" + this.problem.getName() + "-" + this.problem.getNumberOfObjectives() + "/";
+            boolean success = (new File(folderName)).mkdirs();
+            hypervolumeStream = new PrintStream(folderName + "hypervolume_execution_" + currentExecution + ".csv");
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getStackTrace());
+        }
+    }
+    
+    private void initializePopulationStream(int currentExecution) {
+        try {
+            String folderName = "Results/Populations" + this.problem.getName() + "-" + this.problem.getNumberOfObjectives() + "/";
             boolean success = (new File(folderName)).mkdirs();
             hypervolumeStream = new PrintStream(folderName + "hypervolume_execution_" + currentExecution + ".csv");
 
@@ -148,12 +159,12 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 
                 if (evaluations % evaluationToSave == 0) {
 //                    
-//                    WFGHypervolume qualityIndicator = new WFGHypervolume();
-//                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
+                    WFGHypervolume qualityIndicator = new WFGHypervolume();
+                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
 
-                    Metrics.Hypervolume hv = new Metrics.Hypervolume();
-
-                    double value = hv.calculateHypervolume(getResultArray(), populationSize, problem.getNumberOfObjectives());
+//                    Metrics.Hypervolume hv = new Metrics.Hypervolume();
+//
+//                    double value = hv.calculateHypervolume(getResultArray(), populationSize, problem.getNumberOfObjectives());
 
 //                    double value2 = qualityIndicator.hypervolume(getResult(), getParetoArray(600), populationSize);
                     System.out.println(value);
