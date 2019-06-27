@@ -2,9 +2,8 @@ package AggregatedProblems;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
-import org.uma.jmetal.solution.DoubleSolution;
-import org.uma.jmetal.solution.Solution;
+import Implementations.AbstractDoubleProblem;
+import Implementations.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
 
 /**
@@ -28,6 +27,7 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
             throws JMetalException {
         setNumberOfVariables(numberOfVariables);
         setNumberOfObjectives(originalNumberOfObjectives);
+        setNumberOfAggregatedObjectives(reducedNumberOfObjectives);
         setName("AggDTLZ5");
         
         this.reducedNumberOfObjectives = reducedNumberOfObjectives;

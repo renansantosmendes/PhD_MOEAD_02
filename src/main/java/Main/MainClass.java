@@ -45,11 +45,13 @@ public class MainClass {
         double neighborhoodSelectionProbability = 0.1;
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
-        int evaluationToSave = 500;
-        int maxExecutions = 5;
+        int evaluationToSave = 5000;
+        int maxExecutions = 15;
+        int reducedNumberOfObjectives = 2;
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-        Problem problem = new DTLZ2(numberOfVariables, numberOfObjectives);
+//        Problem problem = new DTLZ1(numberOfVariables, numberOfObjectives);
+        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
 //        Problem problem = new WFG2(2*(numberOfObjectives - 1),20, numberOfObjectives); 
         
         

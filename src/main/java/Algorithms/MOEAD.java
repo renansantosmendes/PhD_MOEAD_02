@@ -159,16 +159,18 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 
                 if (evaluations % evaluationToSave == 0) {
 //                    
-                    WFGHypervolume qualityIndicator = new WFGHypervolume();
-                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
-
+//                    WFGHypervolume qualityIndicator = new WFGHypervolume();
+//                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
+                    solutionsOutput = new SolutionsOutput(problem, population, execution, evaluations);
+                    solutionsOutput.saveSolutionsDuringAlgorithmExecution();
+                    
 //                    Metrics.Hypervolume hv = new Metrics.Hypervolume();
 //
 //                    double value = hv.calculateHypervolume(getResultArray(), populationSize, problem.getNumberOfObjectives());
 
 //                    double value2 = qualityIndicator.hypervolume(getResult(), getParetoArray(600), populationSize);
-                    System.out.println(value);
-                    hypervolumeStream.println(value);
+//                    System.out.println(value);
+//                    hypervolumeStream.println(value);
                 }
 
             } while (evaluations < maxEvaluations);

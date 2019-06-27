@@ -29,6 +29,10 @@ public class SolutionsOutput {
     int currentExecution;
     String folderName;
 
+    public SolutionsOutput() {
+
+    }
+
     public SolutionsOutput(Problem problemPar, List<DoubleSolution> populationPar) {
         population.clear();
         population.addAll(populationPar);
@@ -44,25 +48,25 @@ public class SolutionsOutput {
         generateFolderName();
     }
 
-    public SolutionsOutput(Problem problemPar, List<DoubleSolution> populationPar, String fileName, int currentExecution) {
+    public SolutionsOutput(Problem problemPar, List<DoubleSolution> populationPar, int currentExecution, int currentEvaluation) {
         population.clear();
         population.addAll(populationPar);
         problem = problemPar;
-        this.fileName = fileName + "_";
+        this.fileName = "";
         this.currentEvaluation = currentEvaluation;
         this.currentExecution = currentExecution;
         generateFolderName();
     }
-    
-    public SolutionsOutput(Problem problemPar, String fileName, int currentExecution) {
+
+    public SolutionsOutput(Problem problemPar, String fileName, int currentExecution, int currentEvaluation) {
         problem = problemPar;
         this.fileName = fileName + "_";
         this.currentEvaluation = currentEvaluation;
         this.currentExecution = currentExecution;
         generateFolderName();
     }
-    
-    private void generateFolderName(){
+
+    private void generateFolderName() {
         folderName = problem.getName() + "-" + problem.getNumberOfObjectives();
     }
 
@@ -103,12 +107,12 @@ public class SolutionsOutput {
             Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void saveSolutionsDuringAlgorithmExecution() {
-        
+
         String folderName = "Results/" + this.folderName;
-        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-" +
-                this.currentExecution + "-" + this.currentEvaluation;
+        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-"
+                + this.currentExecution + "-" + this.currentEvaluation;
 
         boolean success = (new File(folderName)).mkdirs();
         try {
@@ -116,20 +120,26 @@ public class SolutionsOutput {
 
             for (DoubleSolution solution : population) {
                 Hypervolume qualityIndicator = new Hypervolume();
-                printStreamSolutions.print(solution + "\n");
+                for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
+                    if (i != problem.getNumberOfObjectives() - 1) {
+                        printStreamSolutions.print(solution.getObjective(i) + ",");
+                    } else {
+                        printStreamSolutions.print(solution.getObjective(i) + "\n");
+                    }
+                }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void saveSolutionsDuringAlgorithmExecution(List<DoubleSolution> populationPar) {
         population.clear();
         population.addAll(populationPar);
-        
+
         String folderName = "Results/" + this.folderName;
-        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-" +
-                this.currentExecution + "-" + this.currentEvaluation;
+        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-"
+                + this.currentExecution + "-" + this.currentEvaluation;
 
         boolean success = (new File(folderName)).mkdirs();
         try {
@@ -143,12 +153,11 @@ public class SolutionsOutput {
             Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     public void saveMetricDuringAlgorithmExecution(PrintStream printStreamSolutions) {
         String folderName = "Results/" + this.folderName;
-        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-" +
-                this.currentExecution + "-" + this.currentEvaluation;
+        fileName = problem.getName() + "_" + problem.getNumberOfObjectives() + "-"
+                + this.currentExecution + "-" + this.currentEvaluation;
 
         boolean success = (new File(folderName)).mkdirs();
         try {
