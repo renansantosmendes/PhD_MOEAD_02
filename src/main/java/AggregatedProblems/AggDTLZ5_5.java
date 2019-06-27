@@ -50,7 +50,7 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
      */
     public void evaluate(DoubleSolution solution) {
         int numberOfVariables = getNumberOfVariables();
-        int numberOfObjectives = 5;//getNumberOfObjectives();
+        int numberOfObjectives = getNumberOfObjectives();
         double[] theta = new double[numberOfObjectives - 1];
         double g = 0.0;
 
@@ -97,13 +97,15 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
         solution.setObjective(1, f[numberOfObjectives - 1]);
         List<Double> objectivesList = new ArrayList<>();
         
-        for (int i = 0; i < numberOfObjectives - 1; i++) {
+        for (int i = 0; i < numberOfObjectives; i++) {
             objectivesList.add(f[i]);
 
         }
         solution.setAttribute("RealObjectives", objectivesList);
         //solution = new DoubleSolution();
-
+//        System.out.println("Teste");
+//        System.out.println(solution.getAttribute("RealObjectives"));
+//        System.out.println(solution);
     }
 
 }

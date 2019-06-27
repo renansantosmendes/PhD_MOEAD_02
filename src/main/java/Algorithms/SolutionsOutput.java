@@ -119,14 +119,14 @@ public class SolutionsOutput {
             PrintStream printStreamSolutions = new PrintStream(folderName + "/" + fileName + "-solutions.csv");
 
             for (DoubleSolution solution : population) {
-                Hypervolume qualityIndicator = new Hypervolume();
-                for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
-                    if (i != problem.getNumberOfObjectives() - 1) {
-                        printStreamSolutions.print(solution.getObjective(i) + ",");
-                    } else {
-                        printStreamSolutions.print(solution.getObjective(i) + "\n");
-                    }
-                }
+                printStreamSolutions.print(solution.getAttribute("RealObjectives") + "\n");
+//                for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
+//                    if (i != problem.getNumberOfObjectives() - 1) {
+//                        printStreamSolutions.print(solution.getObjective(i) + ",");
+//                    } else {
+//                        printStreamSolutions.print(solution.getObjective(i) + "\n");
+//                    }
+//                }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);

@@ -20,12 +20,12 @@ import Implementations.Problem;
 import AggregatedProblems.AggDTLZ5_5;
 import Implementations.CrossoverOperator;
 import Implementations.DifferentialEvolutionCrossover;
-import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
-import org.uma.jmetal.problem.multiobjective.dtlz.*;
+import Implementations.AbstractDoubleProblem;
 import org.uma.jmetal.problem.multiobjective.wfg.*;
 import org.uma.jmetal.problem.multiobjective.zdt.*;
 import Implementations.DoubleSolution;
 import Implementations.SelectionOperator;
+import Problems.DTLZ5;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 
@@ -34,12 +34,12 @@ import org.uma.jmetal.util.point.impl.ArrayPoint;
  *
  * @author renansantos 
 */
-public class MainClass {
+public class MainClass {    
 
     public static void main(String[] args) throws JMetalException, FileNotFoundException {
         
         //initializing problem and algorithm variables
-        int numberOfObjectives = 2;//5,10,15
+        int numberOfObjectives = 5;//5,10,15
         int numberOfVariables = 10;
         int populationSize = 100;
         int resultPopulationSize = 100;
@@ -48,12 +48,12 @@ public class MainClass {
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
         int evaluationToSave = 5000;
-        int maxExecutions = 15;
+        int maxExecutions = 30;
         int reducedNumberOfObjectives = 2;
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-//        Problem problem = new DTLZ1(numberOfVariables, numberOfObjectives);
-        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
+        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives);
+//        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
 //        Problem problem = new WFG2(2*(numberOfObjectives - 1),20, numberOfObjectives); 
         
         
