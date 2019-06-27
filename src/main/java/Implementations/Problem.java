@@ -21,5 +21,5 @@ public interface Problem<S> extends Serializable  {
 
   /* Methods */
   void evaluate(S solution) ;
-  S createSolution() ;
+  S createSolution();
 }

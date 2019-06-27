@@ -6,14 +6,12 @@
 package Implementations;
 
 import java.util.List;
-import org.uma.jmetal.problem.DoubleProblem;
-import org.uma.jmetal.solution.DoubleSolution;
 
 /**
  *
  * @author renansantos
  */
-public class AbstractDoubleProblem extends AbstractGenericProblem<DoubleSolution>
+public abstract class AbstractDoubleProblem extends AbstractGenericProblem<DoubleSolution>
         implements DoubleProblem {
 
     private List<Double> lowerLimit;
@@ -41,11 +39,11 @@ public class AbstractDoubleProblem extends AbstractGenericProblem<DoubleSolution
 
     @Override
     public DoubleSolution createSolution() {
-        return new org.uma.jmetal.solution.impl.DefaultDoubleSolution(this);
+        return new DefaultDoubleSolution(this);
     }
-
+    
     @Override
-    public void evaluate(DoubleSolution solution) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getNumberOfAggregatedObjectives() {
+        return 0;
     }
 }

@@ -14,16 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAII;
-import org.uma.jmetal.operator.*;
-import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
-import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
-import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
-import org.uma.jmetal.problem.Problem;
+import Implementations.PolynomialMutation;
+import Implementations.BinaryTournamentSelection;
+import Implementations.Problem;
+import AggregatedProblems.AggDTLZ5_5;
+import Implementations.CrossoverOperator;
+import Implementations.DifferentialEvolutionCrossover;
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.problem.multiobjective.dtlz.*;
 import org.uma.jmetal.problem.multiobjective.wfg.*;
 import org.uma.jmetal.problem.multiobjective.zdt.*;
-import org.uma.jmetal.solution.DoubleSolution;
+import Implementations.DoubleSolution;
+import Implementations.SelectionOperator;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 
@@ -57,7 +59,7 @@ public class MainClass {
         
         //initializing algorithm operators
         CrossoverOperator crossover = new DifferentialEvolutionCrossover();
-        MutationOperator mutation = new PolynomialMutation(0.02, 20);
+        PolynomialMutation mutation = new PolynomialMutation(0.02, 20);
         SelectionOperator selection = new BinaryTournamentSelection();
         
         MOEAD algorithm = new MOEAD(

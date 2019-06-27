@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jmetal.qualityIndicator.Hypervolume;
-import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.solution.DoubleSolution;
+import Implementations.Problem;
+import Implementations.DoubleSolution;
 
 /**
  *

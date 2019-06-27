@@ -27,7 +27,7 @@ public interface Solution<T> extends Serializable {
 
     int getNumberOfObjectives();
 
-    org.uma.jmetal.solution.Solution<T> copy();
+    Solution<T> copy();
 
     void setAttribute(Object id, Object value);
 

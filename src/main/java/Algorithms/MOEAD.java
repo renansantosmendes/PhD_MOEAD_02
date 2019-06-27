@@ -5,28 +5,22 @@
  */
 package Algorithms;
 
+import Implementations.DifferentialEvolutionCrossover;
+import Implementations.DoubleSolution;
+import Implementations.Problem;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jmetal.qualityIndicator.Hypervolume;
-import org.uma.jmetal.algorithm.multiobjective.moead.util.MOEADUtils;
-import org.uma.jmetal.operator.CrossoverOperator;
-import org.uma.jmetal.operator.MutationOperator;
-import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
-import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.qualityindicator.impl.hypervolume.WFGHypervolume;
-import org.uma.jmetal.solution.DoubleSolution;
+import Implementations.CrossoverOperator;
+import Implementations.MutationOperator;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 /**
  *
  * @author renansantos
  */
-@SuppressWarnings("serial")
 public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 
     protected DifferentialEvolutionCrossover differentialEvolutionCrossover;

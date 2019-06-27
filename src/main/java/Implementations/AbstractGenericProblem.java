@@ -10,7 +10,7 @@ package Implementations;
  * @author renansantos
  */
 @SuppressWarnings("serial")
-public class AbstractGenericProblem<S> implements org.uma.jmetal.problem.Problem<S>  {
+public abstract class AbstractGenericProblem<S> implements Problem<S>  {
 
     private int numberOfVariables = 0;
     private int numberOfObjectives = 0;
@@ -58,15 +58,5 @@ public class AbstractGenericProblem<S> implements org.uma.jmetal.problem.Problem
 
     protected void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public void evaluate(S solution) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public S createSolution() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

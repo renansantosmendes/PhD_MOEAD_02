@@ -13,6 +13,7 @@ import org.uma.jmetal.util.JMetalException;
 public class AggDTLZ5_5 extends AbstractDoubleProblem {
 
     private Integer reducedNumberOfObjectives;
+
     public AggDTLZ5_5() {
         this(12, 3, 3);
     }
@@ -29,7 +30,7 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
         setNumberOfObjectives(originalNumberOfObjectives);
         setNumberOfAggregatedObjectives(reducedNumberOfObjectives);
         setName("AggDTLZ5");
-        
+
         this.reducedNumberOfObjectives = reducedNumberOfObjectives;
 
         List<Double> lowerLimit = new ArrayList<>(getNumberOfVariables());
@@ -90,12 +91,19 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
         Double F = 0.0;
         for (int i = 0; i < numberOfObjectives - 1; i++) {
             F += f[i];
-            
+
         }
         solution.setObjective(0, F);
         solution.setObjective(1, f[numberOfObjectives - 1]);
-        //solution = new DoubleSolution();
+        List<Double> objectivesList = new ArrayList<>();
         
+        for (int i = 0; i < numberOfObjectives - 1; i++) {
+            objectivesList.add(f[i]);
+
+        }
+        solution.setAttribute("RealObjectives", objectivesList);
+        //solution = new DoubleSolution();
+
     }
 
 }
