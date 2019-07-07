@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Implementations.CrossoverOperator;
 import Implementations.MutationOperator;
+import jmetal.qualityIndicator.QualityIndicator;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 /**
@@ -132,6 +133,12 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
                 int[] permutation = new int[populationSize];
                 MOEADUtils.randomPermutation(permutation, populationSize);
 
+                 if (evaluations == 100) {
+                    solutionsOutput = new SolutionsOutput(problem, population, execution, 0);
+                    solutionsOutput.saveSolutionsDuringAlgorithmExecution();
+                }
+                
+                
                 for (int i = 0; i < populationSize; i++) {
                     int subProblemId = permutation[i];
 
@@ -151,8 +158,8 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
                     updateNeighborhood(child, subProblemId, neighborType);
                 }
 
-                if (evaluations % evaluationToSave == 0) {
-//                    
+                if ((evaluations % evaluationToSave == 0) ||(evaluations == 200)) {
+//                     
 //                    WFGHypervolume qualityIndicator = new WFGHypervolume();
 //                    double value = qualityIndicator.computeHypervolume(getResult(), referencePoint);
                     solutionsOutput = new SolutionsOutput(problem, population, execution, evaluations);
@@ -165,6 +172,7 @@ public class MOEAD extends AbstractMOEAD<DoubleSolution> {
 //                    double value2 = qualityIndicator.hypervolume(getResult(), getParetoArray(600), populationSize);
 //                    System.out.println(value);
 //                    hypervolumeStream.println(value);
+                    
                 }
 
             } while (evaluations < maxEvaluations);

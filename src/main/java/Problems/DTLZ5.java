@@ -17,6 +17,7 @@ import org.uma.jmetal.util.JMetalException;
  */
 public class DTLZ5 extends AbstractDoubleProblem {
 
+    private Integer originalNumberOfObjectives;
     /**
      * Creates a default DTLZ5 problem (12 variables and 3 objectives)
      */
@@ -33,11 +34,14 @@ public class DTLZ5 extends AbstractDoubleProblem {
     public DTLZ5(Integer numberOfVariables, Integer numberOfObjectives) throws JMetalException {
         setNumberOfVariables(numberOfVariables);
         setNumberOfObjectives(numberOfObjectives);
+        setOriginalNumberOfObjectives(numberOfObjectives);
+        
+        setNumberOfAggregatedObjectives(numberOfObjectives);
         setName("DTLZ5");
 
         List<Double> lowerLimit = new ArrayList<>(getNumberOfVariables());
         List<Double> upperLimit = new ArrayList<>(getNumberOfVariables());
-
+        
         for (int i = 0; i < getNumberOfVariables(); i++) {
             lowerLimit.add(0.0);
             upperLimit.add(1.0);
@@ -52,14 +56,14 @@ public class DTLZ5 extends AbstractDoubleProblem {
      */
     public void evaluate(DoubleSolution solution) {
         int numberOfVariables = getNumberOfVariables();
-        int numberOfObjectives = getNumberOfObjectives();
+        int numberOfObjectives = getOriginalNumberOfObjectives();
         double[] theta = new double[numberOfObjectives - 1];
         double g = 0.0;
 
         double[] f = new double[numberOfObjectives];
         double[] x = new double[numberOfVariables];
 
-        int k = getNumberOfVariables() - getNumberOfObjectives() + 1;
+        int k = getNumberOfVariables() - getOriginalNumberOfObjectives() + 1;
 
         for (int i = 0; i < numberOfVariables; i++) {
             x[i] = solution.getVariableValue(i);

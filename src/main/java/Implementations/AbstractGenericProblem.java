@@ -12,6 +12,7 @@ package Implementations;
 @SuppressWarnings("serial")
 public abstract class AbstractGenericProblem<S> implements Problem<S>  {
 
+    private int originalNumberOfObjectives = 0;
     private int numberOfVariables = 0;
     private int numberOfObjectives = 0;
     private int numberOfConstraints = 0;
@@ -26,9 +27,17 @@ public abstract class AbstractGenericProblem<S> implements Problem<S>  {
 
     @Override
     public int getNumberOfObjectives() {
-        return numberOfObjectives;
+        return numberOfAggregatedObjectives;
     }
 
+    public int getOriginalNumberOfObjectives() {
+        return originalNumberOfObjectives;
+    }
+    
+    public void setOriginalNumberOfObjectives(int obj) {
+        originalNumberOfObjectives = obj;
+    }
+    
     @Override
     public int getNumberOfConstraints() {
         return numberOfConstraints;

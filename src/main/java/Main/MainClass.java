@@ -40,20 +40,21 @@ public class MainClass {
         
         //initializing problem and algorithm variables
         int numberOfObjectives = 5;//5,10,15
+        int reducedNumberOfObjectives = 2;
         int numberOfVariables = 10;
         int populationSize = 100;
         int resultPopulationSize = 100;
-        int maxEvaluations = 200000;
+        int maxEvaluations = 220000;
         double neighborhoodSelectionProbability = 0.1;
         int maximumNumberOfReplacedSolutions = 10;
         int neighborSize = 10;
         int evaluationToSave = 5000;
         int maxExecutions = 30;
-        int reducedNumberOfObjectives = 2;
+        
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
-        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives);
-//        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
+//        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives);
+        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
 //        Problem problem = new WFG2(2*(numberOfObjectives - 1),20, numberOfObjectives); 
         
         
@@ -83,11 +84,11 @@ public class MainClass {
         System.out.println(algorithm.getResult());
         
         
-        new SolutionsOutput(problem, algorithm.getResult(), problem.getName()).saveSolutions();
+//        new SolutionsOutput(problem, algorithm.getResult(), problem.getName()).saveSolutions();
         
         
 //        List<DoubleSolution> population = new ArrayList<>();
-//        int numberOfSolutions = 10000;
+//        int numberOfSolutions = 100;
 //        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
 //        population.forEach(u -> System.out.println(u));
         

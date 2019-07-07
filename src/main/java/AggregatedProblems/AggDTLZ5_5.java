@@ -13,6 +13,7 @@ import org.uma.jmetal.util.JMetalException;
 public class AggDTLZ5_5 extends AbstractDoubleProblem {
 
     private Integer reducedNumberOfObjectives;
+    private Integer originalNumberOfObjectives;
 
     public AggDTLZ5_5() {
         this(12, 3, 3);
@@ -32,7 +33,9 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
         setName("AggDTLZ5");
 
         this.reducedNumberOfObjectives = reducedNumberOfObjectives;
-
+//        this.originalNumberOfObjectives = originalNumberOfObjectives;
+        setOriginalNumberOfObjectives(originalNumberOfObjectives);
+        
         List<Double> lowerLimit = new ArrayList<>(getNumberOfVariables());
         List<Double> upperLimit = new ArrayList<>(getNumberOfVariables());
 
@@ -50,14 +53,14 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
      */
     public void evaluate(DoubleSolution solution) {
         int numberOfVariables = getNumberOfVariables();
-        int numberOfObjectives = getNumberOfObjectives();
+        int numberOfObjectives = getOriginalNumberOfObjectives();
         double[] theta = new double[numberOfObjectives - 1];
         double g = 0.0;
 
         double[] f = new double[numberOfObjectives];
         double[] x = new double[numberOfVariables];
 
-        int k = getNumberOfVariables() - getNumberOfObjectives() + 1;
+        int k = getNumberOfVariables() - getOriginalNumberOfObjectives() + 1;
 
         for (int i = 0; i < numberOfVariables; i++) {
             x[i] = solution.getVariableValue(i);
@@ -88,20 +91,28 @@ public class AggDTLZ5_5 extends AbstractDoubleProblem {
             }
         }
 
+        //calculando a agregaçao
         Double F = 0.0;
         for (int i = 0; i < numberOfObjectives - 1; i++) {
             F += f[i];
-
         }
-        solution.setObjective(0, F);
-        solution.setObjective(1, f[numberOfObjectives - 1]);
+
+        double[] reducedObjectives = new double[reducedNumberOfObjectives];
+        reducedObjectives[0] = F;
+        reducedObjectives[1] = f[numberOfObjectives - 1];
+//        solution.setObjective(0, F);
+//        solution.setObjective(1, f[numberOfObjectives - 1]);
+
         List<Double> objectivesList = new ArrayList<>();
-        
+
         for (int i = 0; i < numberOfObjectives; i++) {
             objectivesList.add(f[i]);
 
         }
         solution.setAttribute("RealObjectives", objectivesList);
+
+        solution.setObjectives(reducedObjectives);
+        this.setNumberOfObjectives(reducedNumberOfObjectives);
         //solution = new DoubleSolution();
 //        System.out.println("Teste");
 //        System.out.println(solution.getAttribute("RealObjectives"));

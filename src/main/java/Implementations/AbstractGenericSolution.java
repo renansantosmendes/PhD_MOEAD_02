@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 /**
@@ -33,7 +32,6 @@ public class AbstractGenericSolution <T, P extends Problem<?>> implements Soluti
     this.problem = problem ;
     attributes = new HashMap<>() ;
     randomGenerator = JMetalRandom.getInstance() ;
-
     objectives = new double[problem.getNumberOfObjectives()] ;
     aggregatedObjectives = new double[problem.getNumberOfAggregatedObjectives()] ;
     variables = new ArrayList<>(problem.getNumberOfVariables()) ;
@@ -145,5 +143,10 @@ public class AbstractGenericSolution <T, P extends Problem<?>> implements Soluti
     @Override
     public Solution<T> copy() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setObjectives(double[] newValues) {
+        this.objectives = newValues;
     }
 }

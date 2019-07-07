@@ -13,6 +13,8 @@ import java.io.Serializable;
  */
 public interface Solution<T> extends Serializable {
 
+    void setObjectives(double[] value);
+    
     void setObjective(int index, double value);
 
     double getObjective(int index);

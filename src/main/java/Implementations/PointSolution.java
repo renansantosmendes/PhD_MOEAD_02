@@ -151,4 +151,9 @@ public class PointSolution implements Solution<Double> {
         return Arrays.toString(objectives);
     }
 
+    @Override
+    public void setObjectives(double[] newValues) {
+        this.objectives = newValues;
+    }
+
 }
