@@ -25,7 +25,7 @@ import org.uma.jmetal.problem.multiobjective.wfg.*;
 import org.uma.jmetal.problem.multiobjective.zdt.*;
 import Implementations.DoubleSolution;
 import Implementations.SelectionOperator;
-import Problems.DTLZ5;
+import Problems.*;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 
@@ -41,7 +41,7 @@ public class MainClass {
         //initializing problem and algorithm variables
         int numberOfObjectives = 5;//5,10,15
         int reducedNumberOfObjectives = 2;
-        int numberOfVariables = 10;
+        int numberOfVariables = 20;
         int populationSize = 100;
         int resultPopulationSize = 100;
         int maxEvaluations = 220000;
@@ -54,7 +54,8 @@ public class MainClass {
         //initializing benchmark problem
 //        Problem problem = new ZDT1(numberOfVariables); 
 //        Problem problem = new DTLZ5(numberOfVariables, numberOfObjectives);
-        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
+        Problem problem = new DTLZ1(numberOfVariables, numberOfObjectives);
+//        Problem problem = new AggDTLZ5_5(numberOfVariables, numberOfObjectives, reducedNumberOfObjectives);
 //        Problem problem = new WFG2(2*(numberOfObjectives - 1),20, numberOfObjectives); 
         
         
@@ -79,18 +80,19 @@ public class MainClass {
                 neighborSize);
 
        
-        algorithm.runExperiment();
-        System.out.println("MOEAD Finished!");
-        System.out.println(algorithm.getResult());
+//        algorithm.runExperiment();
+//        System.out.println("MOEAD Finished!");
+//        System.out.println(algorithm.getResult());
         
         
 //        new SolutionsOutput(problem, algorithm.getResult(), problem.getName()).saveSolutions();
         
         
-//        List<DoubleSolution> population = new ArrayList<>();
-//        int numberOfSolutions = 100;
-//        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
-//        population.forEach(u -> System.out.println(u));
+        List<DoubleSolution> population = new ArrayList<>();
+        int numberOfSolutions = 10000;
+        population.addAll(algorithm.initializePopulation(problem, numberOfSolutions));
+        population.forEach(u -> System.out.println(u));
+        new SolutionsOutput(problem, population, problem.getName()).saveSolutions();
         
     }
 }

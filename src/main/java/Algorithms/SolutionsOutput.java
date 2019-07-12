@@ -90,7 +90,7 @@ public class SolutionsOutput {
     }
 
     public void saveSolutions() {
-        String folderName = "Results/" + this.folderName;
+        String folderName = "RandomSolutions/" + this.folderName;
         fileName = problem.getName() + "-" + problem.getNumberOfObjectives();
 
         boolean success = (new File(folderName)).mkdirs();
