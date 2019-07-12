@@ -27,8 +27,8 @@ public abstract class AbstractGenericProblem<S> implements Problem<S>  {
 
     @Override
     public int getNumberOfObjectives() {
-//        return numberOfAggregatedObjectives;
-        return numberOfObjectives;
+        return numberOfAggregatedObjectives;
+        //return numberOfObjectives;
     }
 
     public int getOriginalNumberOfObjectives() {
