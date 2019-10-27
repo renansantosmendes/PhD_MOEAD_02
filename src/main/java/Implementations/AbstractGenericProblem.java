@@ -33,6 +33,7 @@ public abstract class AbstractGenericProblem<S> implements Problem<S>  {
 
     public int getOriginalNumberOfObjectives() {
         return originalNumberOfObjectives;
+//        return numberOfObjectives;
     }
     
     public void setOriginalNumberOfObjectives(int obj) {

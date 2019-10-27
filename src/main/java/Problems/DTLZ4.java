@@ -15,74 +15,81 @@ import org.uma.jmetal.util.JMetalException;
  *
  * @author renansantos
  */
-public class DTLZ4 extends AbstractDoubleProblem{
-    
-  /**
-   * Creates a default DTLZ4 problem (12 variables and 3 objectives)
-   */
-  public DTLZ4() {
-    this(12, 3);
-  }
+public class DTLZ4 extends AbstractDoubleProblem {
 
-  /**
-   * Creates a DTLZ4 problem instance
-   *
-   * @param numberOfVariables  Number of variables
-   * @param numberOfObjectives Number of objective functions
-   */
-  public DTLZ4(Integer numberOfVariables, Integer numberOfObjectives) throws JMetalException {
-    setNumberOfVariables(numberOfVariables);
-    setNumberOfObjectives(numberOfObjectives);
-    setName("DTLZ4");
+    private Integer originalNumberOfObjectives;
 
-    List<Double> lowerLimit = new ArrayList<>(getNumberOfVariables()) ;
-    List<Double> upperLimit = new ArrayList<>(getNumberOfVariables()) ;
-
-    for (int i = 0; i < getNumberOfVariables(); i++) {
-      lowerLimit.add(0.0);
-      upperLimit.add(1.0);
+    /**
+     * Creates a default DTLZ4 problem (12 variables and 3 objectives)
+     */
+    public DTLZ4() {
+        this(12, 3);
     }
 
-    setLowerLimit(lowerLimit);
-    setUpperLimit(upperLimit);
-  }
+    /**
+     * Creates a DTLZ4 problem instance
+     *
+     * @param numberOfVariables Number of variables
+     * @param numberOfObjectives Number of objective functions
+     */
+    public DTLZ4(Integer numberOfVariables, Integer numberOfObjectives) throws JMetalException {
+        setNumberOfVariables(numberOfVariables);
+        setNumberOfObjectives(numberOfObjectives);
+        setOriginalNumberOfObjectives(numberOfObjectives);
 
-  /** Evaluate() method */
-  public void evaluate(DoubleSolution solution) {
-    int numberOfVariables = getNumberOfVariables();
-    int numberOfObjectives = getNumberOfObjectives() ;
-    double alpha = 100.0;
+        setNumberOfAggregatedObjectives(numberOfObjectives);
+        setName("DTLZ4");
 
-    double[] f = new double[numberOfObjectives];
-    double[] x = new double[numberOfVariables] ;
+        List<Double> lowerLimit = new ArrayList<>(getNumberOfVariables());
+        List<Double> upperLimit = new ArrayList<>(getNumberOfVariables());
 
-    int k = getNumberOfVariables() - getNumberOfObjectives() + 1;
+        for (int i = 0; i < getNumberOfVariables(); i++) {
+            lowerLimit.add(0.0);
+            upperLimit.add(1.0);
+        }
 
-    for (int i = 0; i < numberOfVariables; i++) {
-      x[i] = solution.getVariableValue(i) ;
+        setLowerLimit(lowerLimit);
+        setUpperLimit(upperLimit);
     }
 
-    double g = 0.0;
-    for (int i = numberOfVariables - k; i < numberOfVariables; i++) {
-      g += (x[i] - 0.5) * (x[i] - 0.5);
-    }
+    /**
+     * Evaluate() method
+     */
+    public void evaluate(DoubleSolution solution) {
+        int numberOfVariables = getNumberOfVariables();
+        int numberOfObjectives = getOriginalNumberOfObjectives();
+        double alpha = 100.0;
 
-    for (int i = 0; i < numberOfObjectives; i++) {
-      f[i] = 1.0 + g;
-    }
+        double[] f = new double[numberOfObjectives];
+        double[] x = new double[numberOfVariables];
 
-    for (int i = 0; i < numberOfObjectives; i++) {
-      for (int j = 0; j < numberOfObjectives - (i + 1); j++) {
-        f[i] *= java.lang.Math.cos(java.lang.Math.pow(x[j], alpha) * (java.lang.Math.PI / 2.0));
-      }
-      if (i != 0) {
-        int aux = numberOfObjectives - (i + 1);
-        f[i] *= java.lang.Math.sin(java.lang.Math.pow(x[aux], alpha) * (java.lang.Math.PI / 2.0));
-      }
-    }
+        int k = getNumberOfVariables() - getOriginalNumberOfObjectives() + 1;
 
-    for (int i = 0; i < numberOfObjectives; i++) {
-      solution.setObjective(i, f[i]);
+        for (int i = 0; i < numberOfVariables; i++) {
+            x[i] = solution.getVariableValue(i);
+        }
+
+        double g = 0.0;
+        for (int i = numberOfVariables - k; i < numberOfVariables; i++) {
+            g += (x[i] - 0.5) * (x[i] - 0.5);
+        }
+
+        for (int i = 0; i < numberOfObjectives; i++) {
+            f[i] = 1.0 + g;
+        }
+
+        for (int i = 0; i < numberOfObjectives; i++) {
+            for (int j = 0; j < numberOfObjectives - (i + 1); j++) {
+                f[i] *= java.lang.Math.cos(java.lang.Math.pow(x[j], alpha) * (java.lang.Math.PI / 2.0));
+            }
+            if (i != 0) {
+                int aux = numberOfObjectives - (i + 1);
+                f[i] *= java.lang.Math.sin(java.lang.Math.pow(x[aux], alpha) * (java.lang.Math.PI / 2.0));
+            }
+        }
+
+        for (int i = 0; i < numberOfObjectives; i++) {
+            solution.setObjective(i, f[i]);
+        }
     }
-  }
 }

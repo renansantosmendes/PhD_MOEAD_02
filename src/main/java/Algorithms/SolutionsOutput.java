@@ -104,7 +104,7 @@ public class SolutionsOutput {
                 printStreamSolutions.print(solution + "\n");
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SolutionsOutput.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
 
